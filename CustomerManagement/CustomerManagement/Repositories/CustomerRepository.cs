@@ -1,4 +1,5 @@
-﻿using CustomerManagement.Interfaces;
+﻿using CustomerManagement.DTO;
+using CustomerManagement.Interfaces;
 using CustomerManagement.Models;
 using Dapper;
 using System;
@@ -33,10 +34,10 @@ namespace CustomerManagement.Repositories
         /// <param name="customer">Đối tượng khách hàng</param>
         /// <returns>true: Thêm mới thành công, false: Thêm mới thất bại</returns>
         /// Created by: TMSANG (03/07/2020)
-        public async Task<Customer> CreateAsync(Customer customer)
+        public async Task<CustomerDTO> CreateAsync(CustomerDTO customer)
         {
             using var connection = await _databaseContext.CreateConnectionAsync();
-            customer.Id = Guid.NewGuid();
+            customer.Id = Guid.NewGuid().ToString();
             await connection.ExecuteAsync("INSERT INTO Customer(Id, FullName) VALUES (@id, @name)", new { id = customer.Id, name = customer.FullName });
             return customer;
         }
@@ -46,10 +47,10 @@ namespace CustomerManagement.Repositories
         /// </summary>
         /// <returns>Danh sách tất cả khách hàng</returns>
         /// Created by: TMSANG (03/07/2020)
-        public async Task<IEnumerable<Customer>> GetAllAsync()
+        public async Task<IEnumerable<CustomerDTO>> GetAllAsync()
         {
             using var connection = await _databaseContext.CreateConnectionAsync();
-            return await connection.QueryAsync<Customer>("SELECT * FROM Customer");
+            return await connection.QueryAsync<CustomerDTO>("SELECT * FROM Customer");
         }
 
         /// <summary>
@@ -58,10 +59,10 @@ namespace CustomerManagement.Repositories
         /// <param name="id">Id của khách hàng</param>
         /// <returns>Thông tin khách hàng theo Id</returns>
         /// Created by: TMSANG (03/07/2020)
-        public async Task<Customer> GetByIdAsync(Guid id)
+        public async Task<CustomerDTO> GetByIdAsync(Guid id)
         {
             using var connection = await _databaseContext.CreateConnectionAsync();
-            return await connection.QuerySingleOrDefaultAsync<Customer>("SELECT * FROM Customer WHERE Id=@id", new { id = id.ToString() });
+            return await connection.QuerySingleOrDefaultAsync<CustomerDTO>("SELECT * FROM Customer WHERE Id=@id", new { id = id.ToString() });
         } 
 
         #endregion

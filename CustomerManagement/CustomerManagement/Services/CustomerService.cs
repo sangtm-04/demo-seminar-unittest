@@ -1,4 +1,5 @@
-﻿using CustomerManagement.Interfaces;
+﻿using CustomerManagement.DTO;
+using CustomerManagement.Interfaces;
 using CustomerManagement.Models;
 using System;
 using System.Collections.Generic;
@@ -36,9 +37,13 @@ namespace CustomerManagement.Services
         /// Created by: TMSANG (03/07/2020)
         public async Task<Customer> CreateAsync(Customer customer)
         {
-            var createdCustomer = await _customerRepository.CreateAsync(customer);
+            var customerDTO = new CustomerDTO
+            {
+                FullName = customer.FullName
+            };
+            var createdCustomer = await _customerRepository.CreateAsync(customerDTO);
             _logger.LogInformation("Đã thêm một khách hàng mới với Id: {Id}", createdCustomer.Id);
-            return createdCustomer;
+            return MapDtoToDomain(createdCustomer);
         }
 
         /// <summary>
@@ -48,9 +53,9 @@ namespace CustomerManagement.Services
         /// Created by: TMSANG (03/07/2020)
         public async Task<List<Customer>> GetAllAsync()
         {
-            var customers = (await _customerRepository.GetAllAsync()).ToList();
-            _logger.LogInformation("Đã get được {Count} khách hàng", customers.Count);
-            return customers;
+            var customerDTOs = (await _customerRepository.GetAllAsync()).ToList();
+            _logger.LogInformation("Đã get được {Count} khách hàng", customerDTOs.Count);
+            return customerDTOs.Select(MapDtoToDomain).ToList();
         }
 
         /// /// <summary>
@@ -70,9 +75,17 @@ namespace CustomerManagement.Services
             }
 
             _logger.LogInformation("Đã get được một khách hàng với Id: {Id}", customerId);
-            return customer;
+            return MapDtoToDomain(customer);
         }
 
+        private Customer MapDtoToDomain(CustomerDTO dto)
+        {
+            return new Customer
+            {
+                Id = Guid.Parse(dto.Id),
+                FullName = dto.FullName
+            };
+        }
         #endregion
     }
 }

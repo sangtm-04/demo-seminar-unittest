@@ -1,4 +1,5 @@
-﻿using CustomerManagement.Models;
+﻿using CustomerManagement.DTO;
+using CustomerManagement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace CustomerManagement.Interfaces
         /// </summary>
         /// <returns>Danh sách tất cả khách hàng</returns>
         /// Created by: TMSANG (03/07/2020)
-        Task<IEnumerable<Customer>> GetAllAsync();
+        Task<IEnumerable<CustomerDTO>> GetAllAsync();
 
         /// <summary>
         /// Lấy thông tin khách hàng theo Id
@@ -21,7 +22,7 @@ namespace CustomerManagement.Interfaces
         /// <param name="id">Id của khách hàng</param>
         /// <returns>Thông tin khách hàng theo Id</returns>
         /// Created by: TMSANG (03/07/2020)
-        Task<Customer> GetByIdAsync(Guid id);
+        Task<CustomerDTO> GetByIdAsync(Guid id);
 
         /// <summary>
         /// Thêm mới khách hàng
@@ -29,6 +30,6 @@ namespace CustomerManagement.Interfaces
         /// <param name="customer">Đối tượng khách hàng</param>
         /// <returns>true: Thêm mới thành công, false: Thêm mới thất bại</returns>
         /// Created by: TMSANG (03/07/2020)
-        Task<Customer> CreateAsync(Customer customer);
+        Task<CustomerDTO> CreateAsync(CustomerDTO customer);
     }
 }
