@@ -2,11 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CustomerManagement.Database;
-using CustomerManagement.Helpers;
-using CustomerManagement.Interfaces;
-using CustomerManagement.Repositories;
-using CustomerManagement.Services;
+using CustomerManagement.BL.Services;
+using CustomerManagement.DL.Database;
+using CustomerManagement.DL.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,7 +29,6 @@ namespace CustomerManagement
             services.AddControllersWithViews();
 
             services.AddLogging();
-            //services.AddServiceCollection();
             services.AddSingleton<ILoggingService, TestableLoggerService>();
             
             services.AddSingleton<IDatabaseContext>(x =>

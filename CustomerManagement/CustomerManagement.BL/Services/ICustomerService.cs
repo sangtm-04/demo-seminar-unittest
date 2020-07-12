@@ -1,10 +1,10 @@
-﻿using CustomerManagement.Models;
+﻿using CustomerManagement.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CustomerManagement.Interfaces
+namespace CustomerManagement.BL.Services
 {
     public interface ICustomerService
     {

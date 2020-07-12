@@ -1,12 +1,12 @@
-﻿using CustomerManagement.DTO;
-using CustomerManagement.Interfaces;
-using CustomerManagement.Models;
+﻿using CustomerManagement.DL.Repositories;
+using CustomerManagement.Entities.DTO;
+using CustomerManagement.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CustomerManagement.Services
+namespace CustomerManagement.BL.Services
 {
     public class CustomerService : ICustomerService
     {
@@ -43,7 +43,7 @@ namespace CustomerManagement.Services
             };
             var createdCustomer = await _customerRepository.CreateAsync(customerDTO);
             _logger.LogInformation("Đã thêm một khách hàng mới với Id: {Id}", createdCustomer.Id);
-            return MapDtoToDomain(createdCustomer);
+            return MapCustomerDTOToCustomer(createdCustomer);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace CustomerManagement.Services
         {
             var customerDTOs = (await _customerRepository.GetAllAsync()).ToList();
             _logger.LogInformation("Đã get được {Count} khách hàng", customerDTOs.Count);
-            return customerDTOs.Select(MapDtoToDomain).ToList();
+            return customerDTOs.Select(MapCustomerDTOToCustomer).ToList();
         }
 
         /// /// <summary>
@@ -75,10 +75,16 @@ namespace CustomerManagement.Services
             }
 
             _logger.LogInformation("Đã get được một khách hàng với Id: {Id}", customerId);
-            return MapDtoToDomain(customer);
+            return MapCustomerDTOToCustomer(customer);
         }
 
-        private Customer MapDtoToDomain(CustomerDTO dto)
+        /// <summary>
+        /// Map đối tượng CustomerDTO sang đối tượng Customer
+        /// </summary>
+        /// <param name="dto">Đối tượng CustomerDTO</param>
+        /// <returns>Đối tượng Customer</returns>
+        /// Created by: TMSANG (12/07/2020)
+        private Customer MapCustomerDTOToCustomer(CustomerDTO dto)
         {
             return new Customer
             {

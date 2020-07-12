@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CustomerManagement.Models
+namespace CustomerManagement.Entities.Models
 {
     public class AjaxResult
     {

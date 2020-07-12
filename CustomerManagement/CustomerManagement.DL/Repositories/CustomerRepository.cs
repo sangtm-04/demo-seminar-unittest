@@ -1,13 +1,12 @@
-﻿using CustomerManagement.DTO;
-using CustomerManagement.Interfaces;
-using CustomerManagement.Models;
+﻿using CustomerManagement.DL.Database;
+using CustomerManagement.Entities.DTO;
 using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CustomerManagement.Repositories
+namespace CustomerManagement.DL.Repositories
 {
     public class CustomerRepository : ICustomerRepository
     {

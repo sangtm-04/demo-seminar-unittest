@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using CustomerManagement.Interfaces;
-using CustomerManagement.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using CustomerManagement.Constants;
+using CustomerManagement.Entities.Models;
+using CustomerManagement.Common.Constants;
+using CustomerManagement.BL.Services;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace CustomerManagement.Controllers.API
 {
@@ -69,8 +70,7 @@ namespace CustomerManagement.Controllers.API
                 {
                     Code = 1001,
                     Success = false,
-                    Message = ErrorConstant.NotFoundCustomerMsg,
-                    Data = ""
+                    Message = ErrorConstant.NotFoundCustomerMsg
                 };
             }
 
@@ -94,13 +94,22 @@ namespace CustomerManagement.Controllers.API
         public async Task<AjaxResult> CreateCustomer([FromBody] Customer customer)
         {
             var createdCustomer = await _customerService.CreateAsync(customer);
-            CreatedAtAction("GetCustomer", new { customerId = createdCustomer.Id }, createdCustomer);
+
+            if (createdCustomer == null)
+            {
+                return new AjaxResult
+                {
+                    Code = 1002,
+                    Success = false,
+                    Message = ErrorConstant.CreateFailMsg
+                };
+            }
+
             return new AjaxResult
             {
                 Code = (int)HttpStatusCode.OK,
                 Success = true,
-                Message = Constant.SuccessMessage,
-                Data = ""
+                Message = Constant.SuccessMessage
             };
         }
 

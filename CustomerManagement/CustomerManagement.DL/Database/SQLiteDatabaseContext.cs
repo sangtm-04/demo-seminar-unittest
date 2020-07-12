@@ -1,4 +1,4 @@
-﻿using CustomerManagement.Interfaces;
+﻿using CustomerManagement.DL.Database;
 using Dapper;
 using Microsoft.Data.Sqlite;
 using System;
@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CustomerManagement.Database
+namespace CustomerManagement.DL.Database
 {
     public class SQLiteDatabaseContext : IDatabaseContext
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace CustomerManagement.Models
+namespace CustomerManagement.Entities.Models
 {
     public class ErrorViewModel
     {

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CustomerManagement.Models
+namespace CustomerManagement.Entities.DTO
 {
-    public class Customer
+    public class CustomerDTO
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public string FullName { get; set; }
     }

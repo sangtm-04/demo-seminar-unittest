@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement", "CustomerManagement\CustomerManagement.csproj", "{9C641C41-1F61-46F1-986E-83127A3FD5DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerManagement.Web", "CustomerManagement\CustomerManagement.Web.csproj", "{9C641C41-1F61-46F1-986E-83127A3FD5DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.BL", "CustomerManagement.BL\CustomerManagement.BL.csproj", "{26EDE19A-8C82-4D4D-B6D8-F62D7111762F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.DL", "CustomerManagement.DL\CustomerManagement.DL.csproj", "{F12C74CF-164C-41BA-8486-A9EB014B7EFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.Common", "CustomerManagement.Common\CustomerManagement.Common.csproj", "{57CC8E00-9D2E-40AE-8851-962C8FCA8B08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.Entities", "CustomerManagement.Entities\CustomerManagement.Entities.csproj", "{64515879-8E85-4C9A-AF34-124018A631BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{9C641C41-1F61-46F1-986E-83127A3FD5DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C641C41-1F61-46F1-986E-83127A3FD5DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C641C41-1F61-46F1-986E-83127A3FD5DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26EDE19A-8C82-4D4D-B6D8-F62D7111762F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26EDE19A-8C82-4D4D-B6D8-F62D7111762F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26EDE19A-8C82-4D4D-B6D8-F62D7111762F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26EDE19A-8C82-4D4D-B6D8-F62D7111762F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F12C74CF-164C-41BA-8486-A9EB014B7EFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F12C74CF-164C-41BA-8486-A9EB014B7EFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F12C74CF-164C-41BA-8486-A9EB014B7EFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F12C74CF-164C-41BA-8486-A9EB014B7EFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57CC8E00-9D2E-40AE-8851-962C8FCA8B08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57CC8E00-9D2E-40AE-8851-962C8FCA8B08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57CC8E00-9D2E-40AE-8851-962C8FCA8B08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57CC8E00-9D2E-40AE-8851-962C8FCA8B08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64515879-8E85-4C9A-AF34-124018A631BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64515879-8E85-4C9A-AF34-124018A631BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64515879-8E85-4C9A-AF34-124018A631BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64515879-8E85-4C9A-AF34-124018A631BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

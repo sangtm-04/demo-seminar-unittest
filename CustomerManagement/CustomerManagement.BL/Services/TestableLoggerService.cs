@@ -1,11 +1,10 @@
-﻿using CustomerManagement.Interfaces;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CustomerManagement.Services
+namespace CustomerManagement.BL.Services
 {
     public class TestableLoggerService : ILoggingService
     {
