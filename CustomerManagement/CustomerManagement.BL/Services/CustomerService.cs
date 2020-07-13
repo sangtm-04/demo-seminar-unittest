@@ -1,4 +1,5 @@
-﻿using CustomerManagement.DL.Repositories;
+﻿using CustomerManagement.DL.Database;
+using CustomerManagement.DL.Repositories;
 using CustomerManagement.Entities.DTO;
 using CustomerManagement.Entities.Models;
 using System;
@@ -12,16 +13,22 @@ namespace CustomerManagement.BL.Services
     {
         #region Field
 
-        private readonly ICustomerRepository _customerRepository;
         private readonly ILoggingService _logger;
+
+        #endregion
+
+        #region Property
+
+        public CustomerRepository CustomerRepository { get; set; }
 
         #endregion
 
         #region Constructor
 
-        public CustomerService(ICustomerRepository customerRepository, ILoggingService logger)
+        public CustomerService(ILoggingService logger)
         {
-            _customerRepository = customerRepository;
+            var databaseContext = new SQLiteDatabaseContext("./CustomerManagement.db");
+            CustomerRepository = new CustomerRepository(databaseContext);
             _logger = logger;
         }
 
@@ -41,7 +48,7 @@ namespace CustomerManagement.BL.Services
             {
                 FullName = customer.FullName
             };
-            var createdCustomer = await _customerRepository.CreateAsync(customerDTO);
+            var createdCustomer = await CustomerRepository.CreateAsync(customerDTO);
             _logger.LogInformation("Đã thêm một khách hàng mới với Id: {Id}", createdCustomer.Id);
             return MapCustomerDTOToCustomer(createdCustomer);
         }
@@ -53,7 +60,7 @@ namespace CustomerManagement.BL.Services
         /// Created by: TMSANG (03/07/2020)
         public async Task<List<Customer>> GetAllAsync()
         {
-            var customerDTOs = (await _customerRepository.GetAllAsync()).ToList();
+            var customerDTOs = (await CustomerRepository.GetAllAsync()).ToList();
             _logger.LogInformation("Đã get được {Count} khách hàng", customerDTOs.Count);
             return customerDTOs.Select(MapCustomerDTOToCustomer).ToList();
         }
@@ -66,7 +73,7 @@ namespace CustomerManagement.BL.Services
         /// Created by: TMSANG (03/07/2020)
         public async Task<Customer> GetByIdAsync(Guid customerId)
         {
-            var customer = await _customerRepository.GetByIdAsync(customerId);
+            var customer = await CustomerRepository.GetByIdAsync(customerId);
 
             if (customer == null)
             {
@@ -92,6 +99,7 @@ namespace CustomerManagement.BL.Services
                 FullName = dto.FullName
             };
         }
+
         #endregion
     }
 }
