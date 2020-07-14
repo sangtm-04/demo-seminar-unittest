@@ -12,7 +12,6 @@
   <ItemGroup>
     <ProjectReference Include="..\CustomerManagement.BL\CustomerManagement.BL.csproj" />
     <ProjectReference Include="..\CustomerManagement.Common\CustomerManagement.Common.csproj" />
-    <ProjectReference Include="..\CustomerManagement.DL\CustomerManagement.DL.csproj" />
     <ProjectReference Include="..\CustomerManagement.Entities\CustomerManagement.Entities.csproj" />
   </ItemGroup>
 

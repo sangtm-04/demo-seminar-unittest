@@ -13,22 +13,20 @@ namespace CustomerManagement.BL.Services
     {
         #region Field
 
+        private readonly ICustomerRepository _customerRepository;
         private readonly ILoggingService _logger;
 
         #endregion
 
         #region Property
 
-        public CustomerRepository CustomerRepository { get; set; }
-
         #endregion
 
         #region Constructor
 
-        public CustomerService(ILoggingService logger)
+        public CustomerService(ICustomerRepository customerRepository, ILoggingService logger)
         {
-            var databaseContext = new SQLiteDatabaseContext("./CustomerManagement.db");
-            CustomerRepository = new CustomerRepository(databaseContext);
+            _customerRepository = customerRepository;
             _logger = logger;
         }
 
@@ -48,7 +46,7 @@ namespace CustomerManagement.BL.Services
             {
                 FullName = customer.FullName
             };
-            var createdCustomer = await CustomerRepository.CreateAsync(customerDTO);
+            var createdCustomer = await _customerRepository.CreateAsync(customerDTO);
             _logger.LogInformation("Đã thêm một khách hàng mới với Id: {Id}", createdCustomer.Id);
             return MapCustomerDTOToCustomer(createdCustomer);
         }
@@ -60,7 +58,7 @@ namespace CustomerManagement.BL.Services
         /// Created by: TMSANG (03/07/2020)
         public async Task<List<Customer>> GetAllAsync()
         {
-            var customerDTOs = (await CustomerRepository.GetAllAsync()).ToList();
+            var customerDTOs = (await _customerRepository.GetAllAsync()).ToList();
             _logger.LogInformation("Đã get được {Count} khách hàng", customerDTOs.Count);
             return customerDTOs.Select(MapCustomerDTOToCustomer).ToList();
         }
@@ -73,7 +71,7 @@ namespace CustomerManagement.BL.Services
         /// Created by: TMSANG (03/07/2020)
         public async Task<Customer> GetByIdAsync(Guid customerId)
         {
-            var customer = await CustomerRepository.GetByIdAsync(customerId);
+            var customer = await _customerRepository.GetByIdAsync(customerId);
 
             if (customer == null)
             {
@@ -96,7 +94,7 @@ namespace CustomerManagement.BL.Services
             return new Customer
             {
                 Id = Guid.Parse(dto.Id),
-                FullName = dto.FullName
+                FullName = "Ho va ten: " + dto.FullName
             };
         }
 
