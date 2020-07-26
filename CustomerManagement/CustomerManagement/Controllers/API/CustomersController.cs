@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace CustomerManagement.Controllers.API
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class CustomersController : ControllerBase
@@ -40,16 +41,32 @@ namespace CustomerManagement.Controllers.API
         /// Created by: TMSANG (03/07/2020)
         [HttpGet]
         [Route("")]
-        public async Task<AjaxResult> GetCustomers()
+        [ProducesResponseType(typeof(AjaxResult), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(AjaxResult), (int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetCustomers()
         {
-            var customers = await _customerService.GetAllAsync();
-            return new AjaxResult
+            try
             {
-                Code = (int)HttpStatusCode.OK,
-                Success = true,
-                Message = Constant.SuccessMessage,
-                Data = customers
-            };
+                var customers = await _customerService.GetAllAsync();
+                return Ok(
+                    new AjaxResult
+                    {
+                        Code = (int)HttpStatusCode.OK,
+                        Success = true,
+                        Message = Constant.SuccessMessage,
+                        Data = customers
+                    });
+            }
+            catch (Exception)
+            {
+                return BadRequest(
+                    new AjaxResult
+                    {
+                        Code = 1001,
+                        Success = false,
+                        Message = "Fail",
+                    });
+            }
         }
 
         /// <summary>
@@ -63,7 +80,7 @@ namespace CustomerManagement.Controllers.API
         public async Task<AjaxResult> GetCustomerById(Guid customerId)
         {
             var customer = await _customerService.GetByIdAsync(customerId);
-            
+
             if (customer == null)
             {
                 return new AjaxResult
